@@ -34,7 +34,7 @@ class UsersController {
 
     const user : User | null = await UsersService.getUserByEmail(email);
     if (!user) return res.status(401).json({ message: errorMessage });
-    return res.status(200).json({ message: user.role });
+    return res.status(200).json({ role: user.role });
   }
 }
 export default UsersController;
