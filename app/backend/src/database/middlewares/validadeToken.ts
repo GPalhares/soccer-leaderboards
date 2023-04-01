@@ -23,7 +23,7 @@ function validateToken(req: AuthRequest, res: Response, next: NextFunction) {
     next();
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError || err instanceof jwt.JsonWebTokenError) {
-      return res.status(401).json({ message: 'Invalid token' });
+      return res.status(401).json({ message: 'Token must be a valid token' });
     }
     next(err as Error);
   }

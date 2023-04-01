@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import bcrypt = require('bcryptjs');
 import jwt = require('jsonwebtoken');
+import MyJwtPayload from '../../interfaces/token.interface';
 import User from '../../interfaces/user.interface';
 import UsersService from '../services/usersService';
 
@@ -29,10 +30,14 @@ class UsersController {
   }
 
   public static async getRole(req: Request, res: Response) {
-    const { email } = req.body;
+    const token = req.headers.authorization;
+    if (!token) return res.status(401).json({ message: '' });
+    const JWT_SECRET = process.env.JWT_SECRET ?? '';
+    const decodedToken = await jwt.verify(token, JWT_SECRET) as MyJwtPayload;
+    console.log(decodedToken);
     const errorMessage = 'Invalid email or password';
 
-    const user : User | null = await UsersService.getUserByEmail(email);
+    const user : User | null = await UsersService.getUserByEmail(decodedToken.email);
     if (!user) return res.status(401).json({ message: errorMessage });
     return res.status(200).json({ role: user.role });
   }
