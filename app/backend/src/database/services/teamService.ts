@@ -1,4 +1,4 @@
-import TeamModel from '../models/teamModel';
+import TeamModel from '../models/teamsModel';
 
 class TeamService {
   // GetAll
