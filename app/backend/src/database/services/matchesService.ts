@@ -18,6 +18,32 @@ class MatchesService {
     ],
     where: { inProgress },
   });
+
+  // Finishing a match
+
+  public static finishingMatch = async (id: number) => {
+    const match = await MatchesModel.findByPk(id);
+
+    if (!match) {
+      throw new Error('Partida não encontrada');
+    }
+
+    return match.update({ inProgress: false });
+  };
+
+  // Update Match Goals
+
+  public static updateMatchResult = async (
+    matchId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ) => {
+    const match = await MatchesModel.findByPk(matchId);
+    if (!match) {
+      throw new Error('Partida não encontrada');
+    }
+    return match.update({ homeTeamGoals, awayTeamGoals });
+  };
 }
 
 export default MatchesService;
