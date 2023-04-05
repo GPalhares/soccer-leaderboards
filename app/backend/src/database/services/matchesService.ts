@@ -32,7 +32,6 @@ class MatchesService {
   };
 
   // Update Match Goals
-
   public static updateMatchResult = async (
     matchId: number,
     homeTeamGoals: number,
@@ -44,6 +43,21 @@ class MatchesService {
     }
     return match.update({ homeTeamGoals, awayTeamGoals });
   };
+
+  // Create a new Match
+
+  public static createMatch = async (
+    homeTeamId: number,
+    homeTeamGoals: number,
+    awayTeamId: number,
+    awayTeamGoals: number,
+  ) => MatchesModel.create({
+    homeTeamId,
+    homeTeamGoals,
+    awayTeamId,
+    awayTeamGoals,
+    inProgress: true,
+  });
 }
 
 export default MatchesService;
