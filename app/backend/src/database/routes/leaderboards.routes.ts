@@ -4,8 +4,8 @@ import LeaderboardsController from '../controllers/leaderboardsController';
 const app = express();
 app.use(express.json());
 
-app.get('/leaderboards/home', LeaderboardsController.getHomeLeaderBoards);
-app.get('/leaderboards/away', LeaderboardsController.getHomeLeaderBoards);
-app.get('/leaderboards', LeaderboardsController.getLeaderBoards);
+app.get('/leaderboard/home', LeaderboardsController.getHomeLeaderBoards);
+app.get('/leaderboard/away', LeaderboardsController.getAwayLeaderBoards);
+app.get('/leaderboard', LeaderboardsController.getLeaderBoards);
 
 export default app;

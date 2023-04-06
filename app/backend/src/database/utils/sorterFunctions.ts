@@ -1,5 +1,14 @@
 import LeaderBoard from '../../interfaces/leaderboards.interface';
 
+function sortByTotalPoints(a: LeaderBoard, b: LeaderBoard) {
+  if (a.totalPoints > b.totalPoints) {
+    return -1;
+  } if (a.totalPoints < b.totalPoints) {
+    return 1;
+  }
+  return 0;
+}
+
 function sortByVictories(a: LeaderBoard, b: LeaderBoard) {
   if (a.totalVictories > b.totalVictories) {
     return -1;
@@ -29,6 +38,10 @@ function sortByGoalsFavor(a: LeaderBoard, b: LeaderBoard) {
 
 function sortLeaderBoard(leaderBoards: LeaderBoard[]) {
   leaderBoards.sort((a:LeaderBoard, b:LeaderBoard) => {
+    const sortByTotalPointsResult = sortByTotalPoints(a, b);
+    if (sortByTotalPointsResult !== 0) {
+      return sortByTotalPointsResult;
+    }
     const sortByVictoriesResult = sortByVictories(a, b);
     if (sortByVictoriesResult !== 0) {
       return sortByVictoriesResult;
@@ -40,10 +53,8 @@ function sortLeaderBoard(leaderBoards: LeaderBoard[]) {
     const sortByGoalsFavorResult = sortByGoalsFavor(a, b);
     if (sortByGoalsFavorResult !== 0) {
       return sortByGoalsFavorResult;
-    }
-    return 0;
-  });
-  return leaderBoards;
+    } return 0;
+  }); return leaderBoards;
 }
 
 export default sortLeaderBoard;
