@@ -10,6 +10,22 @@ class LeaderBoardsController {
 
     return res.status(200).json(matches);
   }
+
+  // GET Home LeaderBoard
+  public static async getHomeLeaderBoards(req: Request, res: Response) {
+    let matches = {};
+    matches = await LeaderboardsService.getHomeLeaderBoards();
+
+    return res.status(200).json(matches);
+  }
+
+  // GET Away LeaderBoard
+  public static async getAwayLeaderBoards(req: Request, res: Response) {
+    let matches = {};
+    matches = await LeaderboardsService.getAwayLeaderBoards();
+
+    return res.status(200).json(matches);
+  }
 }
 
 export default LeaderBoardsController;

@@ -1,5 +1,5 @@
 interface Team {
-  id?: number;
+  id: number;
   teamName: string;
 }
 

@@ -1,29 +1,36 @@
 import MatchesModel from '../models/matchesModel';
 import TeamModel from '../models/teamsModel';
-import { filterMatchesByTeamId, getTotalVictories,
-  getTotalDraws, getTotalLosses, getGoalsFavor, getGoalsOwn } from '../utils/leaderBoardsFunctions';
+import calculateAllLeaderBoards from '../utils/leaderBoardsFunctions';
 
 class LeaderBoardsService {
   // Get LeaderBoards
   public static getLeaderBoards = async () => {
+    const location = 'all';
     const teams = await TeamModel.findAll({
-      attributes: [
-        'id',
-        'teamName',
-      ],
-    });
-    const matches = await MatchesModel.findAll({});
-    const leaderBoard = teams.map((team) => ({
-      name: team.teamName,
-      totalGames: filterMatchesByTeamId(team.id, matches),
-      totalVictories: getTotalVictories(team.id, matches),
-      totalDraws: getTotalDraws(team.id, matches),
-      totalLosses: getTotalLosses(team.id, matches),
-      goalsFavor: getGoalsFavor(team.id, matches),
-      goalsOwn: getGoalsOwn(team.id, matches),
-    }));
+      attributes: ['id', 'teamName'] });
+    const matches = await MatchesModel.findAll({ where: { inProgress: false } });
+    const leaderBoard = calculateAllLeaderBoards(teams, matches, location);
+    return leaderBoard;
+  };
+
+  // Get Home LeaderBoards
+  public static getHomeLeaderBoards = async () => {
+    const location = 'home';
+    const teams = await TeamModel.findAll({
+      attributes: ['id', 'teamName'] });
+    const matches = await MatchesModel.findAll({ where: { inProgress: false } });
+    const leaderBoard = calculateAllLeaderBoards(teams, matches, location);
+    return leaderBoard;
+  };
+
+  // Get Away LeaderBoards
+  public static getAwayLeaderBoards = async () => {
+    const location = 'away';
+    const teams = await TeamModel.findAll({
+      attributes: ['id', 'teamName'] });
+    const matches = await MatchesModel.findAll({ where: { inProgress: false } });
+    const leaderBoard = calculateAllLeaderBoards(teams, matches, location);
     return leaderBoard;
   };
 }
-
 export default LeaderBoardsService;
