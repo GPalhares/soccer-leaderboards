@@ -82,9 +82,7 @@ function filterMatchesByLocationAndId(id: number, matches: Match[], location: st
     filteredMatches = filteredMatches.filter((match) => match.homeTeamId === id);
   } else if (location === 'away') {
     filteredMatches = filteredMatches.filter((match) => match.awayTeamId === id);
-  }
-
-  return filteredMatches;
+  } return filteredMatches;
 }
 
 function getGoalsFavor(teamId: number, matches: Match[], location: string) {
@@ -94,8 +92,7 @@ function getGoalsFavor(teamId: number, matches: Match[], location: string) {
       return match.homeTeamGoals;
     } if (match.awayTeamId === teamId) {
       return match.awayTeamGoals;
-    }
-    return 0;
+    } return 0;
   });
   return goalsFavor.reduce((total, goals) => total + goals, 0);
 }

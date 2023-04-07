@@ -15,27 +15,22 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('Testes teams sem sucesso', () => {
+describe('Testes matches', () => {
 
-  it('testa rota "/teams"', async function() {
+  it('testa rota "/matches"', async function() {
     const httpResponse = await chai
       .request(app)
-      .get('/teams');
+      .get('/matches');
     expect(httpResponse.status).to.be.equal(200);
   });
 
-  it ('testa rota "/teams/id", ', async () => {
+  it('testa rota "/matches" create match', async function() {
     const httpResponse = await chai
       .request(app)
-      .get('/teams/3')
-    expect(httpResponse.status).to.be.equal(200)
-  })
-  it ('testa rota "/teams/id" com time inexistente, ', async () => {
-    const httpResponse = await chai
-      .request(app)
-      .get('/teams/999')
-    expect(httpResponse.status).to.be.equal(404)
-  })
+      .post('/matches')
+      .send({})
+    expect(httpResponse.status).to.be.equal(401);
+  });
 
 });
 
